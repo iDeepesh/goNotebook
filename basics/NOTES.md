@@ -1,0 +1,16 @@
+- Scope - camelCase is package scope, PascalCase is exported from package. No public/private
+- Rune - Character. 32 bits - 4 bytes of utf-8
+- Loops - No while, no do while. Only for loop. Use for <condition> to replace while scenarios
+- Switch/case - No fall through by default. No need to use break after every switch. Fall through is specified by using fallthrough keyword. Case can include multiple evals. No expression switch as a replacement of if, elseif, elseif, else. Also switch on type of variable.
+- String Literals - “Interpreted string literals in double quotes” `<html>raw string literals in back ticks</html>`
+- Variadic parameters, variadic arguments, Variadic function - which can take unlimited number of parameters of specified type
+- Func-expressions: Variable referring to function. Type of func-expression is func() ReturnType
+- Closure - Returns a func-expression
+- Callback - Passing a func-expression as an argument
+- defer - defers the execution of the function to the end of current function
+- make - used to create instances for reference types i.e. slices, maps and channels. Slices created using make will behave like array for indexes within the declared length. For adding elements after the last index, append() method will be required.
+- arr [10]int is array. sl []int is slice. Following return a slice: arr[2:5], arr[:5], arr[7:], arr[:]
+- Comma-ok idiom for maps. if seconds, ok := timeZones["PST"]; ok {//do something}
+- Interfaces are implemented implicitly. No explicit declaration (e.g. square implements shape) is not required
+- Value receiver: works with value/pointer types. Pointer receiver: works with pointer type only.
+- Assertion: To convert the interface type to concrete type. aShape.(Square)
