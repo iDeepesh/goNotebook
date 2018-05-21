@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func ExecuteAssertions(){
+func ExecuteAssertions() {
 	fmt.Println("Inside interfaces.ExecuteAssertions")
 	defer fmt.Println("Completed interfaces.ExecuteAssertions")
 
@@ -16,6 +16,6 @@ func ExecuteAssertions(){
 	printCircle(s.(circle)) //Needs assertion to make sure that it is circle
 }
 
-func printCircle(c circle){
+func printCircle(c circle) {
 	fmt.Printf("This is a cirlce. %T\n", c)
 }

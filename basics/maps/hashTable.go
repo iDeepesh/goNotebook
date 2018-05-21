@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func ExecuteHashTableFromText()  {
+func ExecuteHashTableFromText() {
 	fmt.Println("Inside maps.ExecuteHashTableFromText")
 	defer fmt.Println("Completed maps.ExecuteHashTableFromText")
 	page := io.DoHttpGet("http://www.gutenberg.org/files/1342/1342-0.txt")
@@ -18,12 +18,12 @@ func ExecuteHashTableFromText()  {
 func createHashTableCounter(text string) {
 	// hT := map[int]int{}
 	hT := make(map[int]int)
-	for i:=0; i<10; i++{
+	for i := 0; i < 10; i++ {
 		hT[i] = 0
 	}
 	scanner := bufio.NewScanner(strings.NewReader(text))
 	scanner.Split(bufio.ScanWords)
-	for scanner.Scan(){
+	for scanner.Scan() {
 		k := hashWord(scanner.Text())
 		hT[k]++
 	}
@@ -33,13 +33,13 @@ func createHashTableCounter(text string) {
 func createHashTable(text string) {
 	// hT := map[int]map[string]int{}
 	hT := make(map[int]map[string]int)
-	for i:=0; i<12; i++{
+	for i := 0; i < 12; i++ {
 		// hT[i] = map[string]int{}
 		hT[i] = make(map[string]int)
 	}
 	scanner := bufio.NewScanner(strings.NewReader(text))
 	scanner.Split(bufio.ScanWords)
-	for scanner.Scan(){
+	for scanner.Scan() {
 		w := scanner.Text()
 		k := hashWord(w)
 		hT[k][w]++
@@ -47,9 +47,9 @@ func createHashTable(text string) {
 
 	var mostUsedWord string
 	var mostUsedCount int
-	for _,v := range hT{
-		for key,value := range v{
-			if value > mostUsedCount{
+	for _, v := range hT {
+		for key, value := range v {
+			if value > mostUsedCount {
 				mostUsedCount = value
 				mostUsedWord = key
 			}
@@ -60,8 +60,8 @@ func createHashTable(text string) {
 
 func hashWord(w string) int {
 	var n int
-	for r := range w{
-		n =+ r
+	for r := range w {
+		n = +r
 	}
-	return n%10
+	return n % 10
 }

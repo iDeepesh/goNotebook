@@ -10,7 +10,7 @@ without closure, for two or more funcs to have access to the same variable,
 that variable would need to be package scope
 */
 
-func ExecuteCallback()  {
+func ExecuteCallback() {
 	fmt.Println("Inside funcExpression.ExecuteCallback")
 	defer fmt.Println("Completed funcExpression.ExecuteCallback")
 
@@ -18,7 +18,7 @@ func ExecuteCallback()  {
 	useCounter(cntr)
 }
 
-func ExecuteClosure()  {
+func ExecuteClosure() {
 	fmt.Println("Inside funcExpression.ExecuteClosure")
 	defer fmt.Println("Completed funcExpression.ExecuteClosure")
 
@@ -28,15 +28,15 @@ func ExecuteClosure()  {
 	fmt.Printf("Third call to counter: %d\n", c())
 }
 
-func counter() func() int{
+func counter() func() int {
 	var c int
-	return func() int{
+	return func() int {
 		c++
 		return c
 	}
 }
 
-func useCounter(c func() int){
+func useCounter(c func() int) {
 	fmt.Printf("First call to counter: %d\n", c())
 	fmt.Printf("Second call to counter: %d\n", c())
 	fmt.Printf("Third call to counter: %d\n", c())

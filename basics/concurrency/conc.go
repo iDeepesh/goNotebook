@@ -1,14 +1,14 @@
 package concurrency
 
 import (
-	"sync/atomic"
-	"time"
-	"sync"
 	"fmt"
 	"math/rand"
+	"sync"
+	"sync/atomic"
+	"time"
 )
 
-func ExecuteConcurrentWaitGroup(){
+func ExecuteConcurrentWaitGroup() {
 	fmt.Println("Inside concurrency.ExecuteConcurrentWaitGroup")
 	defer fmt.Println("Completed concurrency.ExecuteConcurrentWaitGroup")
 
@@ -23,7 +23,7 @@ func ExecuteConcurrentWaitGroup(){
 	fmt.Println("Finale counter value:", c)
 }
 
-func ExecuteConcurrentMutex(){
+func ExecuteConcurrentMutex() {
 	fmt.Println("Inside concurrency.ExecuteConcurrentMutex")
 	defer fmt.Println("Completed concurrency.ExecuteConcurrentMutex")
 
@@ -39,7 +39,7 @@ func ExecuteConcurrentMutex(){
 	fmt.Println("Finale counter value:", c)
 }
 
-func ExecuteConcurrentAtomic(){
+func ExecuteConcurrentAtomic() {
 	fmt.Println("Inside concurrency.ExecuteConcurrentAtomic")
 	defer fmt.Println("Completed concurrency.ExecuteConcurrentAtomic")
 
@@ -54,10 +54,10 @@ func ExecuteConcurrentAtomic(){
 	fmt.Println("Finale counter value:", c)
 }
 
-func incrementor(s string, c *int, wg *sync.WaitGroup){
+func incrementor(s string, c *int, wg *sync.WaitGroup) {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s1)
-	for i:=0;i<1000;i++{
+	for i := 0; i < 1000; i++ {
 		*c++
 		// fmt.Println(s, "index:", i, "counter:", *c)
 		time.Sleep(time.Duration(r.Intn(5)) * time.Millisecond)
@@ -66,10 +66,10 @@ func incrementor(s string, c *int, wg *sync.WaitGroup){
 	wg.Done()
 }
 
-func mutexIncrementor(s string, c *int, wg *sync.WaitGroup, m *sync.Mutex){
+func mutexIncrementor(s string, c *int, wg *sync.WaitGroup, m *sync.Mutex) {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s1)
-	for i:=0;i<1000;i++{
+	for i := 0; i < 1000; i++ {
 		m.Lock()
 		*c++
 		// fmt.Println(s, "index:", i, "counter:", *c)
@@ -80,10 +80,10 @@ func mutexIncrementor(s string, c *int, wg *sync.WaitGroup, m *sync.Mutex){
 	wg.Done()
 }
 
-func atomicIncrementor(s string, c *int32, wg *sync.WaitGroup){
+func atomicIncrementor(s string, c *int32, wg *sync.WaitGroup) {
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s1)
-	for i:=0;i<10;i++{
+	for i := 0; i < 10; i++ {
 		fmt.Println(s, "index:", i, "counter:", atomic.AddInt32(c, 1))
 		time.Sleep(time.Duration(r.Intn(5)) * time.Millisecond)
 	}

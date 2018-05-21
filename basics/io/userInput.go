@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func ExecuteScanning(){
+func ExecuteScanning() {
 	fmt.Println("Inside io.ExecuteScanning")
 	defer fmt.Println("Completed io.ExecuteScanning")
 	fmt.Println("What is your name?")

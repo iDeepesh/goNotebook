@@ -10,7 +10,7 @@ import (
 	"github.com/iDeepesh/goNotebook/basics/channels"
 )
 
-func main()  {
+func main() {
 
 	// io.ExecuteScanning()
 	// io.ExecuteHttpGet()

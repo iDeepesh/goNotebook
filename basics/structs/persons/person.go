@@ -4,30 +4,30 @@ import (
 	"fmt"
 )
 
-type Xyz struct{
+type Xyz struct {
 	Abc string
 }
 
-type SimpleName struct{
+type SimpleName struct {
 	First string
-	Last string
+	Last  string
 }
 
-type FullName struct{
-	Name SimpleName
-	Middle string
+type FullName struct {
+	Name     SimpleName
+	Middle   string
 	initials string
 }
 
-type Person struct{
+type Person struct {
 	Name FullName
-	Age int
+	Age  int
 }
 
-func (fn FullName) SetInitials(in string){
+func (fn FullName) SetInitials(in string) {
 	fn.initials = in
 }
 
-func (p Person) PrintPerson(){
+func (p Person) PrintPerson() {
 	fmt.Println("Person printing inside of persons package, note missing initials field:", p)
 }
