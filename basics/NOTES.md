@@ -14,3 +14,9 @@
 - Interfaces are implemented implicitly. No explicit declaration (e.g. square implements shape) is not required
 - Value receiver: works with value/pointer types. Pointer receiver: works with pointer type only.
 - Assertion: To convert the interface type to concrete type. aShape.(Square)
+- WaitGroup: Wait till all the wait groups are marked done. wg.Add(n), wg.Wait() wg.Done()
+- Mutex: Mutual exclusion. mutex.lock(), mutex.unlock(). Similar to syncronized block in Java
+- Atomicity: atomic method to manage concurrent update scenarios
+- go run -race main.go: Spits out if there are any race conditions in execution.
+- Channels - for sending or receiving data from go routines. Directional operator specifies if the data can be sent(c chan<- int)/received (c <-chan int) to/from channel. Default is bi-directional channel.
+- Closure - Any parameter passed in retains the value passed in. Go is pass by value. Any subsequent changes to variable in callers stack do not affect the value inside the closure.
