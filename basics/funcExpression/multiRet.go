@@ -1,9 +1,10 @@
-package funcExpression
+package funcexpression
 
 import (
 	"fmt"
 )
 
+//ExecuteMultiRetFuncExpression - an example of multiple return values from function expression
 func ExecuteMultiRetFuncExpression() {
 	fmt.Println("Inside EfuncExpression.xecuteMutliRetFuncExpression")
 	defer fmt.Println("Completed funcExpression.ExecuteMutliRetFuncExpression")
@@ -17,6 +18,7 @@ func ExecuteMultiRetFuncExpression() {
 	}
 }
 
+//ExecuteMultiRet - an example of multiple return values from function
 func ExecuteMultiRet() {
 	fmt.Println("Inside funcExpression.ExecuteMutliRet")
 	defer fmt.Println("Completed funcExpression.ExecuteMutliRet")

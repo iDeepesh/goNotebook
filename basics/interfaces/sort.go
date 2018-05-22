@@ -5,37 +5,39 @@ import (
 	"sort"
 )
 
-type person []string
+type persons []string
 
-func (p person) Len() int {
+func (p persons) Len() int {
 	return len(p)
 }
 
-func (p person) Less(i, j int) bool {
+func (p persons) Less(i, j int) bool {
 	return p[i] <= p[j]
 }
 
-func (p person) Swap(i, j int) {
+func (p persons) Swap(i, j int) {
 	p[i], p[j] = p[j], p[i]
 }
 
+//ExecutePersonSort - an example of sorting a struct
 func ExecutePersonSort() {
 	fmt.Println("Inside interfaces.ExecutePersonSort")
 	defer fmt.Println("Completed interfaces.ExecutePersonSort")
 
 	fmt.Println("Sorting in ascending order")
-	people := person{"Deepesh", "Neelima", "Adhya", "Bhavya", "Arya"}
+	people := persons{"Deepesh", "Neelima", "Adhya", "Bhavya", "Arya"}
 	fmt.Println(people)
 	sort.Sort(people)
 	fmt.Println(people)
 
 	fmt.Println("Sorting in descending order")
-	peeps := person{"Deepesh", "Neelima", "Adhya", "Bhavya", "Arya"}
+	peeps := persons{"Deepesh", "Neelima", "Adhya", "Bhavya", "Arya"}
 	fmt.Println(peeps)
 	sort.Sort(sort.Reverse(peeps))
 	fmt.Println(peeps)
 }
 
+//ExecuteStringSort - an example of sorting a slice of strings
 func ExecuteStringSort() {
 	fmt.Println("Inside interfaces.ExecuteStringSort")
 	defer fmt.Println("Completed interfaces.ExecuteStringSort")
@@ -53,6 +55,7 @@ func ExecuteStringSort() {
 	fmt.Println(peeps)
 }
 
+//ExecuteIntSort - an example of sorting a slice of integers
 func ExecuteIntSort() {
 	fmt.Println("Inside interfaces.ExecuteIntSort")
 	defer fmt.Println("Completed interfaces.ExecuteIntSort")

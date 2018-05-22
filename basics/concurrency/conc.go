@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//ExecuteConcurrentWaitGroup - an example of parallelism using WaitGroup
 func ExecuteConcurrentWaitGroup() {
 	fmt.Println("Inside concurrency.ExecuteConcurrentWaitGroup")
 	defer fmt.Println("Completed concurrency.ExecuteConcurrentWaitGroup")
@@ -23,6 +24,7 @@ func ExecuteConcurrentWaitGroup() {
 	fmt.Println("Finale counter value:", c)
 }
 
+//ExecuteConcurrentMutex - an example of synchronization/locking using Mutex
 func ExecuteConcurrentMutex() {
 	fmt.Println("Inside concurrency.ExecuteConcurrentMutex")
 	defer fmt.Println("Completed concurrency.ExecuteConcurrentMutex")
@@ -39,6 +41,7 @@ func ExecuteConcurrentMutex() {
 	fmt.Println("Finale counter value:", c)
 }
 
+//ExecuteConcurrentAtomic - an example of synchronization/locking using atomic routines
 func ExecuteConcurrentAtomic() {
 	fmt.Println("Inside concurrency.ExecuteConcurrentAtomic")
 	defer fmt.Println("Completed concurrency.ExecuteConcurrentAtomic")

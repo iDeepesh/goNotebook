@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+//ExecuteAssertions - an example of assertion (establishing instance type from interface type)
 func ExecuteAssertions() {
 	fmt.Println("Inside interfaces.ExecuteAssertions")
 	defer fmt.Println("Completed interfaces.ExecuteAssertions")

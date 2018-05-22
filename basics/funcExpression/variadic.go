@@ -1,9 +1,10 @@
-package funcExpression
+package funcexpression
 
 import (
 	"fmt"
 )
 
+//ExecuteVariadicArgs - an example of passing variadic arguments to a function
 func ExecuteVariadicArgs() {
 	fmt.Println("Insde funcExpression.ExecuteVariadicArgs")
 	defer fmt.Println("Completed funcExpression.ExecuteVariadicArgs")
@@ -13,6 +14,7 @@ func ExecuteVariadicArgs() {
 	fmt.Printf("The largest number is %d\n", l)
 }
 
+//ExecuteVariadicParams - an example of receiving variadic parameters in a function
 func ExecuteVariadicParams() {
 	fmt.Println("Insde funcExpression.ExecuteVariadicParams")
 	defer fmt.Println("Completed funcExpression.ExecuteVariadicParams")

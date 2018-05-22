@@ -5,6 +5,7 @@ import (
 	"math"
 )
 
+//ExecuteShapes - an example of interfaces and implicit implementation
 func ExecuteShapes() {
 	fmt.Println("Inside interfaces.ExecuteShapes")
 	defer fmt.Println("Completed interfaces.ExecuteShapes")

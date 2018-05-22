@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+//ExecuteStructUsage - an example of working with nested structs
 func ExecuteStructUsage() {
 	fmt.Println("Inside persons.ExecuteStructUsage")
 	defer fmt.Println("Completed persons.ExecuteStructUsage")
@@ -24,10 +25,11 @@ func ExecuteStructUsage() {
 	fmt.Println(p2)
 }
 
+//ExecuteMarshaling - an example of marshaling a struct into a string and unmarshaling string to struct
 func ExecuteMarshaling() {
 	fmt.Println("Inside persons.ExecuteMarshaling")
 	defer fmt.Println("Completed persons.ExecuteMarshaling")
-	n := persons.SimpleName{"John", "Doe"}
+	n := persons.SimpleName{First: "John", Last: "Doe"}
 	bs, e := json.Marshal(n)
 	if e != nil {
 		fmt.Println(e)
@@ -47,10 +49,11 @@ func ExecuteMarshaling() {
 	fmt.Println(n1)
 }
 
+//ExecuteEncoding - an example of encoding a struct into json and decoding json into struct
 func ExecuteEncoding() {
 	fmt.Println("Inside persons.ExecuteEncoding")
 	defer fmt.Println("Completed persons.ExecuteEncoding")
-	n := persons.SimpleName{"Jane", "Doe"}
+	n := persons.SimpleName{First: "Jane", Last: "Doe"}
 	enc := json.NewEncoder(os.Stdout)
 	e := enc.Encode(n)
 	if e != nil {

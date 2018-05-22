@@ -1,4 +1,4 @@
-package funcExpression
+package funcexpression
 
 import (
 	"fmt"
@@ -10,6 +10,7 @@ without closure, for two or more funcs to have access to the same variable,
 that variable would need to be package scope
 */
 
+//ExecuteCallback - an example of using func variable for callback
 func ExecuteCallback() {
 	fmt.Println("Inside funcExpression.ExecuteCallback")
 	defer fmt.Println("Completed funcExpression.ExecuteCallback")
@@ -18,6 +19,7 @@ func ExecuteCallback() {
 	useCounter(cntr)
 }
 
+//ExecuteClosure - an example of using closure
 func ExecuteClosure() {
 	fmt.Println("Inside funcExpression.ExecuteClosure")
 	defer fmt.Println("Completed funcExpression.ExecuteClosure")

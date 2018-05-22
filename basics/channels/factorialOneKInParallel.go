@@ -1,8 +1,8 @@
 package channels
 
 import (
-	"sync"
 	"fmt"
+	"sync"
 )
 
 //ExecuteOneKFactorialsInParallel - Runs 1k concurrent go routines to calculate 9m factorials
@@ -30,7 +30,7 @@ func ExecuteOneKFactorialsInParallel() {
 	fmt.Println("Number of factorials processed", counter)
 }
 
-func mergeOneK(ca []<-chan int) <-chan int{
+func mergeOneK(ca []<-chan int) <-chan int {
 	fmt.Println("Received the number of channels:", len(ca))
 	out := make(chan int)
 	var wg sync.WaitGroup
@@ -42,12 +42,12 @@ func mergeOneK(ca []<-chan int) <-chan int{
 		wg.Done()
 	}
 
-	for i := range ca{
+	for i := range ca {
 		wg.Add(1)
 		go doMerge(ca[i])
 	}
 
-	go func(){
+	go func() {
 		wg.Wait()
 		close(out)
 	}()

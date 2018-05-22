@@ -20,3 +20,4 @@
 - go run -race main.go: Spits out if there are any race conditions in execution.
 - Channels - for sending or receiving data from go routines. Directional operator specifies if the data can be sent(c chan<- int)/received (c <-chan int) to/from channel. Default is bi-directional channel.
 - Closure - Any parameter passed in retains the value passed in. Go is pass by value. Any subsequent changes to variable in callers stack do not affect the value inside the closure.
+- Errors: log.Println vs log.Fatalln. And panic & recover.  fmt.Errorf(). Custom errors with errors.New(). Advanced error handling is structs that implement error interface

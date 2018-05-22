@@ -7,10 +7,11 @@ import (
 	"strings"
 )
 
+//ExecuteHashTableFromText - an example of creating hashtable from text of a book. Also, uses another custom package
 func ExecuteHashTableFromText() {
 	fmt.Println("Inside maps.ExecuteHashTableFromText")
 	defer fmt.Println("Completed maps.ExecuteHashTableFromText")
-	page := io.DoHttpGet("http://www.gutenberg.org/files/1342/1342-0.txt")
+	page := io.DoHTTPGet("http://www.gutenberg.org/files/1342/1342-0.txt")
 	createHashTableCounter(page)
 	createHashTable(page)
 }
