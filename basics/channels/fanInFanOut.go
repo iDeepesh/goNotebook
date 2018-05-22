@@ -12,6 +12,7 @@ type intTuple struct {
 	squared int
 }
 
+//ExecuteFanInFanOut - an example of fan-in and fan-out pattern
 func ExecuteFanInFanOut() {
 	fmt.Println("Inside channels.ExecuteFanInFanOut")
 	defer fmt.Println("Completed channels.ExecuteFanInFanOut")

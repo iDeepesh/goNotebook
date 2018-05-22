@@ -11,6 +11,7 @@ type fact struct {
 	f int
 }
 
+//ExecuteFactorialPipeline - an example channel pipeline with mulitple concurrent routines adding requests
 func ExecuteFactorialPipeline() {
 	fmt.Println("Inside channels.ExecuteFactorialPipeline")
 	defer fmt.Println("Completed channels.ExecuteFactorialPipeline")

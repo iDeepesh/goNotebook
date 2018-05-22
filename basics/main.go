@@ -43,5 +43,6 @@ func main() {
 	// channels.ExecuteChannelConcurrentPolling()
 	// channels.ExecuteDirectionalChannels()
 	// channels.ExecuteFactorialPipeline()
-	channels.ExecuteFanInFanOut()
+	// channels.ExecuteFanInFanOut()
+	channels.ExecuteOneKFactorialsInParallel()
 }

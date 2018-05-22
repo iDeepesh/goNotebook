@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+//ExecuteChannelRange - an example of using for with range for channels. Uses WaitGroup for managing lifecycle of channel
 func ExecuteChannelRange() {
 	fmt.Println("Inside channels.ExecuteChannelRange")
 	defer fmt.Println("Completed channels.ExecuteChannelRange")
@@ -37,6 +38,7 @@ func ExecuteChannelRange() {
 	}
 }
 
+//ExecuteChannelSemaphores - an example of using semaphores for managing lifecycle of channel
 func ExecuteChannelSemaphores() {
 	fmt.Println("Inside channels.ExecuteChannelSemaphores")
 	defer fmt.Println("Completed channels.ExecuteChannelSemaphores")
@@ -67,6 +69,7 @@ func ExecuteChannelSemaphores() {
 	}
 }
 
+//ExecuteChannelConcurrentPolling - an example of mulitple routines polling concurrently from a channel
 func ExecuteChannelConcurrentPolling() {
 	fmt.Println("Inside channels.ExecuteChannelConcurrentPolling")
 	defer fmt.Println("Completed channels.ExecuteChannelConcurrentPolling")
@@ -103,6 +106,7 @@ func ExecuteChannelConcurrentPolling() {
 	// go poll(2)
 }
 
+//ExecuteDirectionalChannels - an example of directional channel
 func ExecuteDirectionalChannels() {
 	fmt.Println("Inside channels.ExecuteDirectional channels")
 	defer fmt.Println("Completed channels.ExecuteDirectional channels")
