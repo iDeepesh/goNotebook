@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scratch-app-deployment
+  labels:
+    apps: scratchapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: scratchapp
+  template:
+    metadata:
+      name: scratch-app
+      labels:
+        app: scratchapp
+    spec:
+      containers:
+      - name: k8s-demo
+        image: ideepesh/k8s-demo
+        ports:
+        - containerPort: 7080

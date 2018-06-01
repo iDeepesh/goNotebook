@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: scratch-app-controller
+spec:
+  replicas: 2
+  selector:
+    app: scratchApp
+  template:
+    metadata:
+      name: scratch-app
+      labels:
+        app: scratchApp
+    spec:
+      containers:
+      - name: k8s-demo
+        image: ideepesh/k8s-demo
+        ports:
+        - name: controller-port
+          containerPort: 7080

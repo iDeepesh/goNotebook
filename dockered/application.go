@@ -8,7 +8,7 @@ import (
 func sayHello(w http.ResponseWriter, r *http.Request) {
 	message := r.URL.Path
 	message = strings.TrimPrefix(message, "/")
-	message = "Hello " + message + ". How are you doing?"
+	message = "Hello " + message + ". I am Latest\n"
 	w.Write([]byte(message))
 }
 
