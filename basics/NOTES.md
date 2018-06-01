@@ -1,3 +1,4 @@
+# golang notes
 - Scope - camelCase is package scope, PascalCase is exported from package. No public/private
 - Rune - Character. 32 bits - 4 bytes of utf-8
 - Loops - No while, no do while. Only for loop. Use for <condition> to replace while scenarios
