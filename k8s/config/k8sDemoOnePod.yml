@@ -3,10 +3,11 @@ kind: Pod
 metadata:
   name: scratch-app
   labels:
-    app: scratchApp
+    app: scratch-app-label
 spec:
   containers:
   - name: k8s-demo
     image: ideepesh/k8s-demo
     ports:
-    - containerPort: 7080
+    - name: one-pod-port
+      containerPort: 7080

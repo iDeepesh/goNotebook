@@ -1,22 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: scratch-app-deployment
+  name: scratch-app-dep-node-selector
   labels:
-    apps: scratchapp
+    apps: scratch-app-label
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: scratchapp
+      app: scratch-app-label
   template:
     metadata:
       name: scratch-app
       labels:
-        app: scratchapp
+        app: scratch-app-label
     spec:
       containers:
       - name: k8s-demo
         image: ideepesh/k8s-demo
         ports:
-        - containerPort: 7080
+        - name: deploy-port
+          containerPort: 7080
+      nodeSelector:
+        hardware: commodity

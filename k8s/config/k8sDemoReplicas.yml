@@ -5,16 +5,16 @@ metadata:
 spec:
   replicas: 2
   selector:
-    app: scratchApp
+    app: scratch-app-label
   template:
     metadata:
       name: scratch-app
       labels:
-        app: scratchApp
+        app: scratch-app-label
     spec:
       containers:
       - name: k8s-demo
         image: ideepesh/k8s-demo
         ports:
-        - name: controller-port
+        - name: rc-port
           containerPort: 7080

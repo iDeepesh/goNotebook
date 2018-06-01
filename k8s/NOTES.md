@@ -69,6 +69,27 @@ Running the image in kubernetes with deployment
 - kubectl delete service scratch-app-dep-svc
 - kubectl delete deployment scratch-app-deployment
 
+Creating service from config file
+- Create deployment as mentioned above
+- kubectl create -f config/k8sDemoSvc.yml
+- minikube service scratch-app-dep-svc --url
+- URL_RETRIEVED_WITH_PREVIOUS_COMMAND/Arya
+
+Using Node selectors:
+- kubectl get nodes
+- kubectl get nodes --show-labels
+- kubectl create -f config/k8sDemoDepNodeSelector.yml
+- kubectl get po
+- kubectl get deploy
+- kubectl describe po
+- kubectl label nodes minikube hardware=commodity
+- kubectl get nodes --show-labels
+- kubectl get po
+- kubectl label nodes minikube hardware=commodity
+- kubectl get po
+- kubectl delete po ANY_ONE_POD
+- kubectl get po
+
 Debugging tricks
 - Simple port forwarding on localhost to pod:
   - kubectl port-forward scratch-app 6080:7080
