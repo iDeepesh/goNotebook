@@ -47,7 +47,7 @@
 
 #Running the image in kubernetes with deployment
 - minikube start
-- kubectl create -f config/k8sDemoReplicas.yml
+- kubectl create -f config/k8sDemoDeployment.yml
 - kubectl get deployments
 - kubectl describe deployment scratch-app-deployment
 - kubectl get replicaset

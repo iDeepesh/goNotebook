@@ -21,3 +21,9 @@ spec:
         ports:
         - name: deploy-port
           containerPort: 7080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: deploy-port
+            initialDelaySeconds: 15
+            timeoutSeconds: 30
