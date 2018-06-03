@@ -1,18 +1,18 @@
-#Building container image and running it locally
+# Building container image and running it locally
 - eval $(docker-machine env default)
 - go build -o main .
 - docker build -t scratch-app -f Dockerfile .
 - docker run --publish 7080:7080 -it scratch-app
 - curl localhost:7080/Arya
 
-#Tagging the image and uploading to hub.docker.com
+# Tagging the image and uploading to hub.docker.com
 - docker images
 - docker tag 0cf5c5dbd51f ideepesh/k8s-demo:v2
 - docker push ideepesh/k8s-demo
 - docker tag 0adflkadfjlf ideepesh/k8s-demo:latest
 - docker push ideepesh/k8s-demo
 
-#Running the image in kubernetes for single pod
+# Running the image in kubernetes for single pod
 - minikube start
 - kubectl create -f config/k8sDemoOnePod.yml
 - kubectl get pods
@@ -28,7 +28,7 @@
 - kubectl delete service scratch-app-pod-svc
 - kubectl delete pod scratch-app
 
-#Running the image in kubernetes with replication controller
+# Running the image in kubernetes with replication controller
 - minikube start
 - kubectl create -f config/k8sDemoReplicas.yml
 - kubectl get replicationcontrollers
@@ -45,7 +45,7 @@
 - kubectl delete service scratch-app-rc-svc
 - kubectl delete replicationcontroller scratch-app-controller
 
-#Running the image in kubernetes with deployment
+# Running the image in kubernetes with deployment
 - minikube start
 - kubectl create -f config/k8sDemoDeployment.yml
 - kubectl get deployments
@@ -69,13 +69,13 @@
 - kubectl delete service scratch-app-dep-svc
 - kubectl delete deployment scratch-app-deployment
 
-#Creating service from config file
+# Creating service from config file
 - Create deployment as mentioned above
 - kubectl create -f config/k8sDemoSvc.yml
 - minikube service scratch-app-dep-svc --url
 - URL_RETRIEVED_WITH_PREVIOUS_COMMAND/Arya
 
-#Using Node selectors:
+# Using Node selectors:
 - kubectl get nodes
 - kubectl get nodes --show-labels
 - kubectl create -f config/k8sDemoDepNodeSelector.yml
@@ -90,7 +90,19 @@
 - kubectl delete po ANY_ONE_POD
 - kubectl get po
 
-#Debugging tricks
+# Adding secrets with volumes
+- create -f config/secrets/my-secrets.yml 
+- kubectl create -f config/secrets/my-secrets.yml
+- kubectl create -f config/k8sDemoDepSecretsVolume.yml
+- kubectl get po
+- kubectl describe pod scratch-app-deployment-5bf9dc78f7-2hrbh
+- kubectl exec scratch-app-deployment-5bf9dc78f7-2hrbh -it -- /bin/bash
+- cd /etc/credentials/
+- cat username 
+- cat password 
+- mount
+
+# Debugging tricks
 - Simple port forwarding on localhost to pod:
   - kubectl port-forward scratch-app 6080:7080
   - localhost:6080/Arya
