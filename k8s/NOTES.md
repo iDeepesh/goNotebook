@@ -126,6 +126,21 @@
 - redis-cli -h IP_OF_THE_DOCKER_MACHINE_HOST -p 7001
 - docker rm -f my-redis-container
 
+# Running the redis and app pods in kubernetes
+- minikube start
+- kubectl create -f config/k8sRedisPod.yml
+- kubectl get pods
+- kubectl get pod redis-app
+- kubectl describe pod redis-app
+- kubectl create -f config/k8sRedisSvc.yml
+- kubectl get service
+- minikube service redis-app-service --url
+- redis-cli -h IP_OF_THE_SERVICE -p 32001
+- URL_RETRIEVED_WITH_PREVIOUS_COMMAND/Arya
+- kubectl delete service redis-app-service
+- kubectl delete pod redis-app
+
+
 # Debugging tricks
 - k8s: Simple port forwarding on localhost to pod:
   - kubectl port-forward FULL_POD_NAME 6080:7080
