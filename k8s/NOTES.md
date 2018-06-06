@@ -1,9 +1,16 @@
 # Building container image and running it locally
+- docker-machine start default
 - eval $(docker-machine env default)
 - go build -o main .
 - docker build -t scratch-app -f Dockerfile .
 - docker run --publish 7080:7080 -it scratch-app
-- curl localhost:7080/Arya
+- Test from docker host:
+  - docker-machine ssh default
+  - curl localhost:7080/Arya
+- OR test from your laptop running docker-machine host
+  - docker ps | grep scratch-app
+  - docker-machine ip default
+  - curl IP_RETRIVED_IN_PREVIOS_STEP:7080/Arya
 
 # Tagging the image and uploading to hub.docker.com
 - docker images
@@ -70,12 +77,18 @@
 - kubectl delete deployment scratch-app-deployment
 
 # Creating service from config file
-- Create deployment as mentioned above
+- minikube start
+- kubectl create -f config/k8sDemoDeployment.yml
+- kubectl get deployments
 - kubectl create -f config/k8sDemoSvc.yml
+- kubectl get service
 - minikube service scratch-app-dep-svc --url
 - URL_RETRIEVED_WITH_PREVIOUS_COMMAND/Arya
+- kubectl delete service scratch-app-dep-svc
+- kubectl delete deployment scratch-app-deployment
 
 # Using Node selectors:
+- minikube start
 - kubectl get nodes
 - kubectl get nodes --show-labels
 - kubectl create -f config/k8sDemoDepNodeSelector.yml
@@ -89,21 +102,34 @@
 - kubectl get po
 - kubectl delete po ANY_ONE_POD
 - kubectl get po
+- kubectl delete deployment scratch-app-dep-node-selector
 
 # Adding secrets with volumes
+- minikube start
 - create -f config/secrets/my-secrets.yml 
 - kubectl create -f config/secrets/my-secrets.yml
 - kubectl create -f config/k8sDemoDepSecretsVolume.yml
 - kubectl get po
 - kubectl describe pod scratch-app-deployment-5bf9dc78f7-2hrbh
 - kubectl exec scratch-app-deployment-5bf9dc78f7-2hrbh -it -- /bin/bash
-- cd /etc/credentials/
-- cat username 
-- cat password 
-- mount
+  - cd /etc/credentials/
+  - cat username 
+  - cat password 
+  - mount
+  - exit
+- kubectl delete deployment scratch-app-dep-secretes-volume
+
+# Running redis in docker container
+- docker run --name my-redis-container -p 7001:6379 -d redis
+- docker ps | grep my-redis-container
+- docker-machine ip default
+- redis-cli -h IP_OF_THE_DOCKER_MACHINE_HOST -p 7001
+- docker rm -f my-redis-container
 
 # Debugging tricks
-- Simple port forwarding on localhost to pod:
-  - kubectl port-forward scratch-app 6080:7080
+- k8s: Simple port forwarding on localhost to pod:
+  - kubectl port-forward FULL_POD_NAME 6080:7080
   - localhost:6080/Arya
   - Checks if the pod is working
+- ssh into the docker-machine host
+  - docker-machine ssh default
