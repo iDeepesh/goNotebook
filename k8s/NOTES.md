@@ -147,3 +147,7 @@
   - Checks if the pod is working
 - ssh into the docker-machine host
   - docker-machine ssh default
+- Service discovery
+  - kubectl get po --namespace=kube-system
+  - kubectl run -i --tty busybox --image=busybox -- sh
+  - nslookup NAME_OF_ANY_SERVICE_CLUSTER
