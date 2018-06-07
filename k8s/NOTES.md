@@ -136,10 +136,9 @@
 - kubectl get service
 - minikube service redis-app-service --url
 - redis-cli -h IP_OF_THE_SERVICE -p 32001
-- URL_RETRIEVED_WITH_PREVIOUS_COMMAND/Arya
+- APP_URL_RETRIEVED_IN_PREVIOUS_COMMAND/Arya
 - kubectl delete service redis-app-service
 - kubectl delete pod redis-app
-
 
 # Debugging tricks
 - k8s: Simple port forwarding on localhost to pod:
