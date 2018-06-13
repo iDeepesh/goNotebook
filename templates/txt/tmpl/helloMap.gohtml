@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+
+<head>
+    <title>Hello Map</title>
+</head>
+
+<body>
+<h1>Hello Map templates</h1>
+
+<p>Accessing value only.</p>
+
+{{range .}}
+<p>The current element is {{.}}</p>
+{{end}}
+
+<p>Now access key and value both.</p>
+
+{{range $k,$v := .}}
+<p>The current key/value is {{$k}} - {{$v}}</p>
+{{end}}
+
+</body>
+
+</html>

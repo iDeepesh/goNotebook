@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+
+<head>
+    <title>Hello Struct Map</title>
+</head>
+
+<body>
+<h1>Hello Struct Map templates</h1>
+
+<p>Accessing value only.</p>
+
+{{range .}}
+<p>Most popular sport in {{.Country}} is {{.Name}}</p>
+{{end}}
+
+<p>Now access key and value both.</p>
+
+{{range $k,$v := .}}
+<p>Most popular player in {{$v.Country}} is {{$k}} who plays {{$v.Name}}</p>
+{{end}}
+
+</body>
+
+</html>
