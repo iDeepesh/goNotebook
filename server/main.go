@@ -1,9 +1,18 @@
 package main
 
-import "github.com/iDeepesh/goNotebook/server/tcp"
+import (
+	"sync"
+
+	"github.com/iDeepesh/goNotebook/server/tcp"
+)
 
 func main() {
-	// tcp.SingleConnectionWriteServer()
-	// tcp.SingleConnectionReadServer()
-	tcp.MultipleConnectionServer()
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	go tcp.SingleConnectionWriteServer()
+	go tcp.SingleConnectionReadServer()
+	go tcp.MultipleConnectionServer()
+
+	wg.Wait()
 }
