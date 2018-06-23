@@ -70,7 +70,7 @@ func MultipleConnectionServer() {
 
 	handler := func(c net.Conn) {
 		defer c.Close()
-		c.SetReadDeadline(time.Now().Add(10 * time.Second))
+		c.SetReadDeadline(time.Now().Add(30 * time.Second))
 
 		sc := bufio.NewScanner(c)
 
