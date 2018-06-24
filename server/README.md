@@ -21,9 +21,16 @@
     - curl localhost:9080/abc/xyz
         - Watch server standard output
         - Server echos to client
+    - telnet localhost 9080
+        - GET / HTTP/1.1
+        - empty line
     - curl -X POST localhost:9080/xyz/abc -d "k1:v1"
         - Watch server standard output
         - Server echos to client
 - BetterHttpServer
 	- Open browser and type localhost:9081/abc
+    - curl localhost:9081/abc
+    - telnet localhost 9081
+        - GET /abc HTTP/1.1
+        - empty line
     - curl -X POST localhost:9081/abc/efg -d "k1:v1"
