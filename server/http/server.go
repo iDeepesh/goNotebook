@@ -6,13 +6,14 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"net/http"
 	"strings"
 	"text/template"
 	"time"
 )
 
-//SimpleHttpServer - Simple http server
-func SimpleHttpServer() {
+//TcpHttpServer - Simple http server
+func TcpHttpServer() {
 	handler := func(c net.Conn) {
 		s := bufio.NewScanner(c)
 		var method string
@@ -60,8 +61,8 @@ func SimpleHttpServer() {
 	}
 }
 
-//BetterHttpServer - server returns html respone to display in browser
-func BetterHttpServer() {
+//BetterTcpHttpServer - server returns html respone to display in browser
+func BetterTcpHttpServer() {
 	l, e := net.Listen("tcp", ":9081")
 	if e != nil {
 		log.Fatal(e)
@@ -116,4 +117,62 @@ func httpServerHandler(c net.Conn) {
 	fmt.Fprint(c, "Content-Type: text/html\r\n")
 	fmt.Fprint(c, "\r\n")
 	fmt.Fprint(c, body)
+}
+
+type foo int
+
+func (f foo) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+
+	w.Header().Set("Deepesh", "Dwivedi")
+	w.Header().Set("TraceId", "abcdef")
+
+	fmt.Fprintln(w, "Http method:")
+	fmt.Fprintln(w, r.Method)
+	fmt.Fprintln(w, "URL:")
+	fmt.Fprintln(w, r.URL)
+	fmt.Fprintln(w, "Headers:")
+	fmt.Fprintln(w, r.Header)
+	fmt.Fprintln(w, "Form variables:")
+	fmt.Fprintln(w, r.Form)
+	fmt.Fprintln(w, "Content length:")
+	fmt.Fprintln(w, r.ContentLength)
+	fmt.Fprintln(w, "User agent:")
+	fmt.Fprintln(w, r.UserAgent())
+
+	w.WriteHeader(200)
+}
+
+//SimpleHTTPServer - a simple server with http package
+func SimpleHTTPServer() {
+	var f foo
+	http.ListenAndServe(":7080", f)
+}
+
+//BetterHTTPServer - a better HTTP server
+func BetterHTTPServer() {
+	a := func(w http.ResponseWriter, r *http.Request) {
+		r.ParseForm()
+
+		w.Header().Set("Deepesh", "Dwivedi")
+		w.Header().Set("TraceId", "abcdef")
+
+		fmt.Fprintln(w, "Http method:")
+		fmt.Fprintln(w, r.Method)
+		fmt.Fprintln(w, "URL:")
+		fmt.Fprintln(w, r.URL)
+		fmt.Fprintln(w, "Headers:")
+		fmt.Fprintln(w, r.Header)
+		fmt.Fprintln(w, "Form variables:")
+		fmt.Fprintln(w, r.Form)
+		fmt.Fprintln(w, "Content length:")
+		fmt.Fprintln(w, r.ContentLength)
+		fmt.Fprintln(w, "User agent:")
+		fmt.Fprintln(w, r.UserAgent())
+
+		w.WriteHeader(200)
+	}
+
+	http.HandleFunc("/", a)
+	http.ListenAndServe(":7081", nil)
 }

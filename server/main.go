@@ -14,16 +14,22 @@ func main() {
 		go tcp.MultipleConnectionServer()
 	}
 
-	runTcpHTTP := func() {
-		go http.SimpleHttpServer()
-		go http.BetterHttpServer()
+	runTCPHTTP := func() {
+		go http.TcpHttpServer()
+		go http.BetterTcpHttpServer()
+	}
+
+	runHTTP := func() {
+		go http.SimpleHTTPServer()
+		go http.BetterHTTPServer()
 	}
 
 	var wg sync.WaitGroup
 	wg.Add(1)
 
 	runTCP()
-	runTcpHTTP()
+	runTCPHTTP()
+	runHTTP()
 
 	wg.Wait()
 }
