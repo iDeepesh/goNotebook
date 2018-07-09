@@ -71,3 +71,15 @@
 - BetterHTTPServer
     - curl 'localhost:7081?k=v&k1=v1' -v
     - curl -X POST localhost:7081 -d 'k1=v1' -d 'k2=v2' 
+
+# file
+- ServeFilesInManyWays
+    - Uses IO stream to serve files
+    - http://localhost:6080
+- ServeWithFileServer
+    - Uses FileServer to serve files in folders
+    - http://localhost:6081/fs
+- StaticFileServer
+    - Quickly creates a static file server
+    - Special behavior when index.html is present in a folder
+    - http://localhost:6082/static

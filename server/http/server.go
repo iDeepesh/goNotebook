@@ -173,6 +173,6 @@ func BetterHTTPServer() {
 		w.WriteHeader(200)
 	}
 
-	http.HandleFunc("/", a)
+	http.HandleFunc("/better", a)
 	http.ListenAndServe(":7081", nil)
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"sync"
 
+	"github.com/iDeepesh/goNotebook/server/file"
 	"github.com/iDeepesh/goNotebook/server/http"
 	"github.com/iDeepesh/goNotebook/server/tcp"
 )
@@ -24,12 +25,19 @@ func main() {
 		go http.BetterHTTPServer()
 	}
 
+	runFile := func() {
+		go file.ServeFilesInManyWays()
+		go file.ServeWithFileServer()
+		go file.StaticFileServer()
+	}
+
 	var wg sync.WaitGroup
 	wg.Add(1)
 
 	runTCP()
 	runTCPHTTP()
 	runHTTP()
+	runFile()
 
 	wg.Wait()
 }
