@@ -5,6 +5,7 @@ import (
 
 	"github.com/iDeepesh/goNotebook/server/file"
 	"github.com/iDeepesh/goNotebook/server/http"
+	"github.com/iDeepesh/goNotebook/server/state"
 	"github.com/iDeepesh/goNotebook/server/tcp"
 )
 
@@ -38,6 +39,7 @@ func main() {
 	runTCPHTTP()
 	runHTTP()
 	runFile()
+	go state.ServerToParseInputs()
 
 	wg.Wait()
 }
