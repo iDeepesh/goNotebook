@@ -1,6 +1,10 @@
 package sorts
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/iDeepesh/goNotebook/dataStructures/heap/minheap"
+)
 
 //BubbleSort - as the name suggests
 func BubbleSort(a []int) {
@@ -90,7 +94,6 @@ func QuickSort(a []int) {
 
 	var quickSort func([]int)
 	quickSort = func(a []int) {
-		fmt.Println("Input array: ", a)
 		if len(a) <= 1 {
 			return
 		}
@@ -115,4 +118,24 @@ func QuickSort(a []int) {
 	quickSort(a)
 
 	fmt.Println("Sorted array:", a)
+}
+
+//HeapSort - as the name suggests
+func HeapSort(a []int) {
+	fmt.Println("Input array: ", a)
+
+	mH := minheap.MinHeap{}
+
+	for _, e := range a {
+		mH = mH.Add(e)
+	}
+
+	fmt.Println("Heap: ", mH)
+
+	for i := len(mH) - 1; i >= 0; i-- {
+		mH[0], mH[i] = mH[i], mH[0]
+		mH.Balance(0, i-1)
+	}
+
+	fmt.Println("Sorted heap: ", mH)
 }

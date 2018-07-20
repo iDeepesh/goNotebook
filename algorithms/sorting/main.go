@@ -30,7 +30,7 @@ func main() {
 		fmt.Print("Enter another number or sort to start sorting: ")
 	}
 
-	fmt.Print("Which sorting - b (bubble), s (selection), i (insertion), m (merge), q (quick): ")
+	fmt.Print("Which sorting - b (bubble), s (selection), i (insertion), m (merge), q (quick), h (heap): ")
 	s.Scan()
 
 	switch t := s.Text(); t {
@@ -48,6 +48,9 @@ func main() {
 		return
 	case "q":
 		sorts.QuickSort(a)
+		return
+	case "h":
+		sorts.HeapSort(a)
 		return
 	}
 
