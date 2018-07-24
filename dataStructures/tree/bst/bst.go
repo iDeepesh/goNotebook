@@ -2,6 +2,7 @@ package bst
 
 import (
 	"fmt"
+	"math"
 )
 
 //Node - struct representing single tree node
@@ -27,8 +28,87 @@ func (t *Tree) Delete(v int) {
 	t.r = deleteNode(t.r, v)
 }
 
+//CheckBST - checks if the tree is bst or not
+func (t *Tree) CheckBST() bool {
+	var checkBST func(*Node, int, int) bool
+	checkBST = func(r *Node, min int, max int) bool {
+		if r == nil {
+			return true
+		}
+
+		if r.value > max || r.value <= min {
+			return false
+		}
+
+		return checkBST(r.left, min, r.value) && checkBST(r.right, r.value, max)
+	}
+
+	return checkBST(t.r, math.MinInt32, math.MaxInt32)
+}
+
 //Print - print the tree in various forms
 func (t *Tree) Print() {
+	var findMaxLevel func(*Node) int
+	findMaxLevel = func(r *Node) int {
+		if r == nil {
+			return 0
+		}
+
+		leftLevel := findMaxLevel(r.left)
+		rightLevel := findMaxLevel(r.right)
+
+		if leftLevel > rightLevel {
+			return leftLevel + 1
+		} else {
+			return rightLevel + 1
+		}
+	}
+
+	printSpace := func(n int) {
+		for i := 0; i < n; i++ {
+			fmt.Print(" ")
+		}
+	}
+
+	var printLevel func([]*Node, int, int)
+	printLevel = func(nList []*Node, l int, maxLevel int) {
+		initalSpaces := int(math.Pow(2, float64(maxLevel-l))) - 1
+		separaterSpaces := int(math.Pow(2, float64(maxLevel-l+1))) - 1
+
+		isAllElementsNil := true
+
+		printSpace(initalSpaces)
+		newList := []*Node{}
+		for _, n := range nList {
+			if n != nil {
+				isAllElementsNil = false
+				fmt.Print(n.value)
+				newList = append(newList, n.left)
+				newList = append(newList, n.right)
+			} else {
+				fmt.Print(" ")
+				newList = append(newList, nil)
+				newList = append(newList, nil)
+			}
+			printSpace(separaterSpaces)
+		}
+
+		fmt.Println("")
+
+		if !isAllElementsNil {
+			printLevel(newList, l+1, maxLevel)
+		}
+	}
+
+	maxLevel := findMaxLevel(t.r)
+	nList := []*Node{t.r}
+	printLevel(nList, 1, maxLevel)
+}
+
+//PrintAllOutputs - prints all traversals, etc.
+func (t *Tree) PrintAllOutputs() {
+	t.Print()
+	fmt.Println("Checking if tree is BST or not: ", t.CheckBST())
 	fmt.Println("Printing breadth first traversal for Tree....")
 	breadthFirstTraversal(t.r)
 	fmt.Println()

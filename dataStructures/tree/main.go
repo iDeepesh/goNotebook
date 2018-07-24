@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/iDeepesh/goNotebook/dataStructures/tree/bst"
 )
 
@@ -11,9 +13,9 @@ func main() {
 	for _, i := range ia {
 		t.Add(i)
 	}
+	t.PrintAllOutputs()
 
-	t.Print()
-
+	fmt.Println("Deleteing element 8")
 	t.Delete(8)
 	t.Print()
 }
