@@ -183,7 +183,7 @@ func breadthFirstTraversal(r *Node) {
 		s := q[0]
 
 		if s.l > l {
-			fmt.Println()
+			// fmt.Println()
 			l++
 		}
 
