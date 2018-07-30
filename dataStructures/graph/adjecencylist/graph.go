@@ -40,7 +40,18 @@ func CreateCompleteGraph(n int) []*Node {
 		g[i].adj = adj
 	}
 
+	printGraph(g)
 	return g
+}
+
+func printGraph(g []*Node) {
+	for _, n := range g {
+		fmt.Printf("Node: %d, Edges:", n.data)
+		for _, e := range n.adj {
+			fmt.Printf(" %d-%d,", n.data, e.data)
+		}
+		fmt.Println()
+	}
 }
 
 //CreateRandomGraph - as the name suggests
@@ -65,6 +76,7 @@ func CreateRandomGraph(n int) []*Node {
 		g[i].adj = adj
 	}
 
+	printGraph(g)
 	return g
 }
 
@@ -72,6 +84,8 @@ func CreateRandomGraph(n int) []*Node {
 func Reset(g []*Node) {
 	for _, n := range g {
 		n.visited = false
+		n.arrival = -1
+		n.departure = -1
 	}
 }
 
@@ -167,9 +181,11 @@ func printEdges(eList []*Edge) {
 }
 
 //BredthFirstTraversal - as the name suggests
-func BredthFirstTraversal(r *Node) {
+func BredthFirstTraversal(g []*Node, ri int) {
 	fmt.Print("Printing BFT:")
 
+	r := g[ri]
+	tE := make([]*Edge, 0)
 	var q []*Node
 	q = append(q, r)
 	r.visited = true
@@ -184,10 +200,14 @@ func BredthFirstTraversal(r *Node) {
 			}
 
 			q = append(q, a)
+			tE = append(tE, &Edge{n, a})
 			a.visited = true
 		}
 		q = q[1:]
 	}
 
 	fmt.Println()
+
+	fmt.Println("Printing the Tree Edges")
+	printEdges(tE)
 }
