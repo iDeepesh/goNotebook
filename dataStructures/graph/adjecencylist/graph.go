@@ -7,11 +7,8 @@ import (
 
 //Node - struct fo Adjacency List for graphs
 type Node struct {
-	data      int
-	adj       []*Edge
-	visited   bool
-	arrival   int
-	departure int
+	data int
+	adj  []*Edge
 }
 
 type Edge struct {
@@ -19,14 +16,20 @@ type Edge struct {
 	v *Node
 }
 
+type nodeInfo struct {
+	visited   bool
+	arrival   int
+	departure int
+}
+
 //CreateCompleteGraph - as the name suggests
 func CreateCompleteGraph(n int) []*Node {
 	fmt.Println("Creating a complete graph with element count of", n)
-	// var g []*Node
+
 	g := make([]*Node, 0)
 
 	for i := 0; i < n; i++ {
-		g = append(g, &Node{i, nil, false, -1, -1})
+		g = append(g, &Node{i, nil})
 	}
 
 	l := len(g)
@@ -57,11 +60,11 @@ func printGraph(g []*Node) {
 //CreateRandomGraph - as the name suggests
 func CreateRandomGraph(n int) []*Node {
 	fmt.Println("Creating a random graph with element count of", n)
-	// var g []*Node
+
 	g := make([]*Node, 0)
 
 	for i := 0; i < n; i++ {
-		g = append(g, &Node{i, nil, false, -1, -1})
+		g = append(g, &Node{i, nil})
 	}
 
 	l := len(g)
@@ -80,18 +83,14 @@ func CreateRandomGraph(n int) []*Node {
 	return g
 }
 
-//Reset - remove any traversal data to reset the graph
-func Reset(g []*Node) {
-	for _, n := range g {
-		n.visited = false
-		n.arrival = -1
-		n.departure = -1
-	}
-}
-
 //DepthFirstTraversal - as the name suggests
 func DepthFirstTraversal(g []*Node, ri int) {
 	fmt.Print("Printing Depth First Traversal:")
+
+	gInfo := make(map[int]*nodeInfo, 0)
+	for _, n := range g {
+		gInfo[n.data] = &nodeInfo{false, -1, -1}
+	}
 
 	r := g[ri]
 	tE := make([]*Edge, 0)
@@ -99,24 +98,24 @@ func DepthFirstTraversal(g []*Node, ri int) {
 
 	var dfs func(*Node)
 	dfs = func(n *Node) {
-		if n.visited {
+		if gInfo[n.data].visited {
 			return
 		}
 
-		n.visited = true
-		n.arrival = t
+		gInfo[n.data].visited = true
+		gInfo[n.data].arrival = t
 		t++
 		fmt.Printf("%d, ", n.data)
 
 		for _, a := range n.adj {
-			if a.v.visited {
+			if gInfo[a.v.data].visited {
 				continue
 			}
 			tE = append(tE, a)
 			dfs(a.v)
 		}
 
-		n.departure = t
+		gInfo[n.data].departure = t
 		t++
 	}
 
@@ -126,7 +125,7 @@ func DepthFirstTraversal(g []*Node, ri int) {
 	fmt.Println("Printing the Tree Edges")
 	printEdges(tE)
 
-	fE, bE, cE := getEdgesByType(g, tE)
+	fE, bE, cE := getEdgesByType(g, gInfo, tE)
 
 	fmt.Println("Printing the Forward Edges")
 	printEdges(fE)
@@ -139,7 +138,7 @@ func DepthFirstTraversal(g []*Node, ri int) {
 }
 
 // Returns - Forward edges, Backward edges, Cross edges
-func getEdgesByType(g []*Node, tE []*Edge) ([]*Edge, []*Edge, []*Edge) {
+func getEdgesByType(g []*Node, gI map[int]*nodeInfo, tE []*Edge) ([]*Edge, []*Edge, []*Edge) {
 	fE := make([]*Edge, 0)
 	bE := make([]*Edge, 0)
 	cE := make([]*Edge, 0)
@@ -150,11 +149,14 @@ func getEdgesByType(g []*Node, tE []*Edge) ([]*Edge, []*Edge, []*Edge) {
 				continue
 			}
 
-			if e.u.arrival < e.v.arrival && e.u.departure > e.v.departure {
+			uI := gI[e.u.data]
+			vI := gI[e.v.data]
+
+			if uI.arrival < vI.arrival && uI.departure > vI.departure {
 				fE = append(fE, e)
-			} else if e.u.arrival > e.v.arrival && e.u.departure < e.v.departure {
+			} else if uI.arrival > vI.arrival && uI.departure < vI.departure {
 				bE = append(bE, e)
-			} else if e.v.arrival < e.v.departure && e.v.departure < e.u.arrival && e.u.arrival < e.u.departure {
+			} else if vI.arrival < vI.departure && vI.departure < uI.arrival && uI.arrival < uI.departure {
 				cE = append(cE, e)
 			}
 		}
@@ -183,24 +185,29 @@ func printEdges(eList []*Edge) {
 func BredthFirstTraversal(g []*Node, ri int) {
 	fmt.Print("Printing Breadth First Traversal:")
 
+	gInfo := make(map[int]*nodeInfo, 0)
+	for _, n := range g {
+		gInfo[n.data] = &nodeInfo{false, -1, -1}
+	}
+
 	r := g[ri]
 	tE := make([]*Edge, 0)
 	var q []*Node
 	q = append(q, r)
-	r.visited = true
+	gInfo[r.data].visited = true
 
 	for len(q) > 0 {
 		n := q[0]
 		fmt.Printf("%d, ", n.data)
 
 		for _, e := range n.adj {
-			if e.v.visited {
+			if gInfo[e.v.data].visited {
 				continue
 			}
 
 			q = append(q, e.v)
 			tE = append(tE, e)
-			e.v.visited = true
+			gInfo[e.v.data].visited = true
 		}
 		q = q[1:]
 	}

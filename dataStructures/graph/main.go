@@ -40,12 +40,10 @@ func main() {
 	if strings.Compare(t, "c") == 0 {
 		cg := adjecencylist.CreateCompleteGraph(n)
 		adjecencylist.DepthFirstTraversal(cg, r)
-		adjecencylist.Reset(cg)
 		adjecencylist.BredthFirstTraversal(cg, r)
 	} else if strings.Compare(t, "r") == 0 {
 		g := adjecencylist.CreateRandomGraph(n)
 		adjecencylist.DepthFirstTraversal(g, r)
-		adjecencylist.Reset(g)
 		adjecencylist.BredthFirstTraversal(g, r)
 	} else {
 		fmt.Println("Please enter a valid graph type to generate.")

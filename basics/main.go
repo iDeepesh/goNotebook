@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/iDeepesh/goNotebook/basics/funcexpression"
+	// "github.com/iDeepesh/goNotebook/basics/funcexpression"
 	// "github.com/iDeepesh/goNotebook/basics/io"
 	// "github.com/iDeepesh/goNotebook/basics/maps"
 	// "github.com/iDeepesh/goNotebook/basics/structs"
-	// "github.com/iDeepesh/goNotebook/basics/interfaces"
+	"github.com/iDeepesh/goNotebook/basics/interfaces"
 	// "github.com/iDeepesh/goNotebook/basics/concurrency"
 	// "github.com/iDeepesh/goNotebook/basics/channels"
 )
@@ -19,8 +19,8 @@ func main() {
 	// funcexpression.ExecuteMultiRetFuncExpression()
 	// funcexpression.ExecuteVariadicParams()
 	// funcexpression.ExecuteVariadicArgs()
-	funcexpression.ExecuteClosure()
-	funcexpression.ExecuteCallback()
+	// funcexpression.ExecuteClosure()
+	// funcexpression.ExecuteCallback()
 
 	// maps.ExecuteHashTableFromText()
 
@@ -33,6 +33,8 @@ func main() {
 	// interfaces.ExecuteStringSort()
 	// interfaces.ExecuteIntSort()
 	// interfaces.ExecuteAssertions()
+	interfaces.ExecuteMinHeapTest()
+	interfaces.ExecuteMaxHeapTest()
 
 	// concurrency.ExecuteConcurrentWaitGroup()
 	// concurrency.ExecuteConcurrentMutex()
