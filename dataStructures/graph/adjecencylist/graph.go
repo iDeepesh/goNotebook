@@ -8,7 +8,7 @@ import (
 //Node - struct fo Adjacency List for graphs
 type Node struct {
 	data      int
-	adj       []*Node
+	adj       []*Edge
 	visited   bool
 	arrival   int
 	departure int
@@ -31,10 +31,10 @@ func CreateCompleteGraph(n int) []*Node {
 
 	l := len(g)
 	for i := 0; i < l; i++ {
-		adj := make([]*Node, 0)
+		adj := make([]*Edge, 0)
 		for j := 0; j < n; j++ {
 			if i != j {
-				adj = append(adj, g[j])
+				adj = append(adj, &Edge{g[i], g[j]})
 			}
 		}
 		g[i].adj = adj
@@ -48,7 +48,7 @@ func printGraph(g []*Node) {
 	for _, n := range g {
 		fmt.Printf("Node: %d, Edges:", n.data)
 		for _, e := range n.adj {
-			fmt.Printf(" %d-%d,", n.data, e.data)
+			fmt.Printf(" %d-%d,", e.u.data, e.v.data)
 		}
 		fmt.Println()
 	}
@@ -66,11 +66,11 @@ func CreateRandomGraph(n int) []*Node {
 
 	l := len(g)
 	for i := 0; i < l; i++ {
-		adj := make([]*Node, 0)
+		adj := make([]*Edge, 0)
 		index := rand.Perm(n)
 		for j := 0; j < n/2; j++ {
 			if i != index[j] {
-				adj = append(adj, g[index[j]])
+				adj = append(adj, &Edge{g[i], g[index[j]]})
 			}
 		}
 		g[i].adj = adj
@@ -91,7 +91,7 @@ func Reset(g []*Node) {
 
 //DepthFirstTraversal - as the name suggests
 func DepthFirstTraversal(g []*Node, ri int) {
-	fmt.Print("Printing DFT:")
+	fmt.Print("Printing Depth First Traversal:")
 
 	r := g[ri]
 	tE := make([]*Edge, 0)
@@ -106,14 +106,14 @@ func DepthFirstTraversal(g []*Node, ri int) {
 		n.visited = true
 		n.arrival = t
 		t++
-		fmt.Print("\t", n.data)
+		fmt.Printf("%d, ", n.data)
 
 		for _, a := range n.adj {
-			if a.visited {
+			if a.v.visited {
 				continue
 			}
-			tE = append(tE, &(Edge{n, a}))
-			dfs(a)
+			tE = append(tE, a)
+			dfs(a.v)
 		}
 
 		n.departure = t
@@ -144,19 +144,18 @@ func getEdgesByType(g []*Node, tE []*Edge) ([]*Edge, []*Edge, []*Edge) {
 	bE := make([]*Edge, 0)
 	cE := make([]*Edge, 0)
 
-	for _, u := range g {
-		for _, v := range u.adj {
-			e := Edge{u, v}
-			if findEdge(tE, &e) {
+	for _, n := range g {
+		for _, e := range n.adj {
+			if findEdge(tE, e) {
 				continue
 			}
 
-			if u.arrival < v.arrival && u.departure > v.departure {
-				fE = append(fE, &e)
-			} else if u.arrival > v.arrival && u.departure < v.departure {
-				bE = append(bE, &e)
-			} else if v.arrival < v.departure && v.departure < u.arrival && u.arrival < u.departure {
-				cE = append(cE, &e)
+			if e.u.arrival < e.v.arrival && e.u.departure > e.v.departure {
+				fE = append(fE, e)
+			} else if e.u.arrival > e.v.arrival && e.u.departure < e.v.departure {
+				bE = append(bE, e)
+			} else if e.v.arrival < e.v.departure && e.v.departure < e.u.arrival && e.u.arrival < e.u.departure {
+				cE = append(cE, e)
 			}
 		}
 	}
@@ -175,14 +174,14 @@ func findEdge(l []*Edge, e *Edge) bool {
 
 func printEdges(eList []*Edge) {
 	for _, e := range eList {
-		fmt.Printf("\t%d-%d", e.u.data, e.v.data)
+		fmt.Printf("%d-%d, ", e.u.data, e.v.data)
 	}
 	fmt.Println()
 }
 
 //BredthFirstTraversal - as the name suggests
 func BredthFirstTraversal(g []*Node, ri int) {
-	fmt.Print("Printing BFT:")
+	fmt.Print("Printing Breadth First Traversal:")
 
 	r := g[ri]
 	tE := make([]*Edge, 0)
@@ -192,16 +191,16 @@ func BredthFirstTraversal(g []*Node, ri int) {
 
 	for len(q) > 0 {
 		n := q[0]
-		fmt.Print("\t", n.data)
+		fmt.Printf("%d, ", n.data)
 
-		for _, a := range n.adj {
-			if a.visited {
+		for _, e := range n.adj {
+			if e.v.visited {
 				continue
 			}
 
-			q = append(q, a)
-			tE = append(tE, &Edge{n, a})
-			a.visited = true
+			q = append(q, e.v)
+			tE = append(tE, e)
+			e.v.visited = true
 		}
 		q = q[1:]
 	}
