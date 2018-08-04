@@ -74,10 +74,13 @@ func createTailNode() *SkipNode {
 }
 
 //Insert - as the name suggests
-func (sl *SkipList) Insert(i int) {
+func (sl *SkipList) Insert(i int) *SkipNode {
 	sn := &SkipNode{i, nil, nil, nil, nil}
 	h := sl.head
-	h.insert(sn)
+
+	if h.insert(sn) == nil {
+		return nil
+	}
 
 	s := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(s)
@@ -94,26 +97,29 @@ func (sl *SkipList) Insert(i int) {
 			break
 		}
 	}
+
+	return sn.getBottom()
 }
 
-func (nsn *SkipNode) insert(sn *SkipNode) {
-	c := nsn
+func (sn *SkipNode) insert(nsn *SkipNode) *SkipNode {
+	c := sn
 	for c != nil {
-		if c.data == sn.data {
-			return
+		if c.data == nsn.data {
+			return nil
 		}
 
-		if c.data < sn.data {
+		if c.data < nsn.data {
 			c = c.next
 			continue
 		}
 
-		c.prev.next = sn
-		sn.prev = c.prev
-		sn.next = c
-		c.prev = sn
+		c.prev.next = nsn
+		nsn.prev = c.prev
+		nsn.next = c
+		c.prev = nsn
 		break
 	}
+	return nsn
 }
 
 func (sn *SkipNode) getBottom() *SkipNode {
@@ -148,17 +154,23 @@ func (sn *SkipNode) find(f int) *SkipNode {
 		return c.getBottom()
 	}
 
-	return c.prev.lower.find(f)
+	if c.prev.lower == nil {
+		return nil
+	}
 
+	return c.prev.lower.find(f)
 }
 
 //Delete - as the name suggests
-func (sl *SkipList) Delete(d int) {
-	n := sl.head.getTop().find(d)
+func (sl *SkipList) Delete(d int) *SkipNode {
+	f := sl.head.getTop().find(d)
 
+	n := f
 	for n != nil {
 		n.prev.next = n.next
 		n.next.prev = n.prev
 		n = n.higher
 	}
+
+	return f
 }
