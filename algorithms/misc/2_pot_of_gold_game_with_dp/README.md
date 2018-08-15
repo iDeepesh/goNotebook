@@ -2,7 +2,8 @@ Pots of gold game: Two players A & B. There are pots of gold arranged in a line,
 
 The idea is to find an optimal strategy that makes A win knowing that B is playing optimally as well. How would you do that?
 
-Solution:
+*Solution:*
+
 For player A : he can pick up coin in first place or last place, for each of these case player B can further pick from first or last place from remaining coins. But for A to win/maximize coins, coins collected by B should be minimum while that of A should be maximized. 
 
 If A selects coin[i], then B can choose coin[i+1] or coin[array_size] 
