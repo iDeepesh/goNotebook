@@ -46,7 +46,7 @@ func splitArrayWithLargestDiff(a []int) (int, int) {
 			diff *= -1
 		}
 		if diff > maxDiff {
-			fmt.Printf("MaxDiff: %d, LSum: %d, RSum: %d, Diff: %d, Index: %d\n", maxDiff, lSum, rSum, diff, i)
+			// fmt.Printf("MaxDiff: %d, LSum: %d, RSum: %d, Diff: %d, Index: %d\n", maxDiff, lSum, rSum, diff, i)
 			maxDiff = diff
 			maxIndex = i
 		}
