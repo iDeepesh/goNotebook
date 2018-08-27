@@ -18,33 +18,6 @@ type point struct {
 
 type theHeap []*point
 
-func (hp *theHeap) Push(x interface{}) {
-	item := x.(*point)
-	*hp = append(*hp, item)
-}
-
-// By the time Pop is called, the head is already swapped to the end of the heap array. So delete last element.
-func (hp *theHeap) Pop() interface{} {
-	n := len(*hp)
-	old := *hp
-	item := old[n-1]
-	*hp = old[0 : n-1]
-	return item
-}
-
-func (hp theHeap) Len() int {
-	return len(hp)
-}
-
-// Answers - if i should be before j
-func (hp theHeap) Less(i, j int) bool {
-	return hp[i].d > hp[j].d
-}
-
-func (hp theHeap) Swap(i, j int) {
-	hp[i], hp[j] = hp[j], hp[i]
-}
-
 func main() {
 	s := bufio.NewScanner(os.Stdin)
 	fmt.Print("Please enter the number of points to generate: ")
@@ -82,10 +55,38 @@ func main() {
 		fmt.Println("Failed in finding the correct list of points. Check detailed output.")
 	}
 
-	fmt.Print("All points: ")
+	fmt.Println("\nAll points: ")
 	printPoints(pts)
-	fmt.Print("Closest points: ")
+	fmt.Println("\nClosest points: ")
 	printPointerPoints(closePoints)
+}
+
+func (hp *theHeap) Push(x interface{}) {
+	// type assertion
+	item := x.(*point)
+	*hp = append(*hp, item)
+}
+
+// By the time Pop is called, the head is already swapped to the end of the heap array. So delete last element.
+func (hp *theHeap) Pop() interface{} {
+	n := len(*hp)
+	old := *hp
+	item := old[n-1]
+	*hp = old[0 : n-1]
+	return item
+}
+
+func (hp theHeap) Len() int {
+	return len(hp)
+}
+
+// Answers - if i should be before j
+func (hp theHeap) Less(i, j int) bool {
+	return hp[i].d > hp[j].d
+}
+
+func (hp theHeap) Swap(i, j int) {
+	hp[i], hp[j] = hp[j], hp[i]
 }
 
 func findClosestPoints(pts []point, pt point, m int) []*point {

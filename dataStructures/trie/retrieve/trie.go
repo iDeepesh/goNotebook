@@ -60,6 +60,7 @@ func remove(n *node, r []rune, i int) bool {
 	}
 
 	if n == nil {
+		fmt.Println("Found node null")
 		return false
 	}
 
