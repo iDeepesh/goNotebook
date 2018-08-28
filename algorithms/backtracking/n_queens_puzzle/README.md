@@ -1,0 +1,1 @@
+The n queens puzzle is the problem of placing n chess queens on an n×n chessboard so that no two queens threaten each other.
