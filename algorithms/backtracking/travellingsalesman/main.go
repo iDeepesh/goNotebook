@@ -11,18 +11,20 @@ import (
 	"time"
 )
 
+//Node - graph node
 type Node struct {
 	id  int
 	adj []*Edge
 }
 
+//Edge - graph edge
 type Edge struct {
 	u, v *Node
 	wt   int
 }
 
 func main() {
-	fmt.Println("Welcome to graphs demonstration.....")
+	fmt.Println("Welcome to Travelling Salesman demonstration.....")
 	s := bufio.NewScanner(os.Stdin)
 	stop := false
 	for !stop {
