@@ -44,17 +44,21 @@ func main() {
 
 		fmt.Println("\nFilling knapsack ...........................")
 		count := 0
+		t1 := time.Now()
 		ks, totals, count := fillKnapsack(c, 0, items, count)
+		d1 := time.Since(t1)
 		fmt.Printf("Here is the Knapsack with max value:%d and weight: %d\n", totals.v, totals.w)
-		fmt.Println("Total recursive calls: ", count)
+		fmt.Printf("Total recursive calls: %d and total duration: %d\n", count, d1.Nanoseconds()/1000)
 		fmt.Println(ks)
 
 		fmt.Println("\nFilling knapsack with Dynamic Programming ...........................")
 		dpTable := make(map[key]dpVal)
 		countDP := 0
+		t2 := time.Now()
 		ksDP, totalsDP, countDP := fillKnapsackDP(c, 0, items, dpTable, countDP)
+		d2 := time.Since(t2)
 		fmt.Printf("Here is the Knapsack with max value:%d and weight: %d\n", totalsDP.v, totalsDP.w)
-		fmt.Println("Total recursive calls with Dynamic Programming: ", countDP)
+		fmt.Printf("Total recursive calls with Dynamic Programming: %d and total duration: %d\n", countDP, d2.Nanoseconds()/1000)
 		fmt.Println(ksDP)
 
 		fmt.Print("\nNow what? (c) continue or (q) quit: ")
