@@ -6,6 +6,33 @@ import (
 	"github.com/iDeepesh/goNotebook/dataStructures/heap/minheap"
 )
 
+//RadixSort - as the name suggests
+func RadixSort(a []int, m int) {
+	fmt.Println("Input array: ", a)
+	defer fmt.Println("Sorted array: ", a)
+	d1 := 1
+	d2 := 10
+
+	for m > 0 {
+		m--
+		b := make([][]int, 10)
+		for _, n := range a {
+			i := (n % d2) / d1
+			b[i] = append(b[i], n)
+		}
+
+		i := 0
+		for j := range b {
+			for _, n := range b[j] {
+				a[i] = n
+				i++
+			}
+		}
+		d1 *= 10
+		d2 *= 10
+	}
+}
+
 //BubbleSort - as the name suggests
 func BubbleSort(a []int) {
 	fmt.Println("Input array: ", a)

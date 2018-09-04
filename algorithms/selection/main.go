@@ -14,9 +14,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Inside sorting main.")
 	s := bufio.NewScanner(os.Stdin)
-
 	for {
 		fmt.Print("Please enter number of elements in array: ")
 		s.Scan()
@@ -33,12 +31,19 @@ func main() {
 
 		a := generateIntegerArray(n, int(math.Pow10(m)))
 
-		fmt.Print("Which sorting - b (bubble), s (selection), i (insertion), m (merge), q (quick), h (heap), r (radix): ")
+		fmt.Print("Please enter the rank index of the element to select: ")
 		s.Scan()
+		rank, e := strconv.Atoi(s.Text())
+		if e != nil {
+			fmt.Println("Please enter valid integer value !!!!")
+		}
 
-		sort(a, s.Text(), m)
+		result := quickSelect(a, rank)
+		fmt.Printf("\nThe element at rank %d will be %d\n\n", rank, result)
 
-		fmt.Print("Do you want to sort another array, y (yes), n (no)? ")
+		sorts.QuickSort(a)
+
+		fmt.Print("Do you want to try another selection, y (yes) or n (no)?")
 		s.Scan()
 		if strings.Compare(s.Text(), "n") == 0 {
 			break
@@ -46,33 +51,30 @@ func main() {
 	}
 }
 
-func sort(a []int, t string, m int) {
+func quickSelect(a []int, rank int) int {
+	l := len(a) - 1
 
-	switch t {
-	case "b":
-		sorts.BubbleSort(a)
-		return
-	case "s":
-		sorts.SelectionSort(a)
-		return
-	case "i":
-		sorts.InsertionSort(a)
-		return
-	case "m":
-		sorts.MergeSort(a)
-		return
-	case "q":
-		sorts.QuickSort(a)
-		return
-	case "h":
-		sorts.HeapSort(a)
-		return
-	case "r":
-		sorts.RadixSort(a, m)
-		return
+	c, i := 0, 0
+	for i < l {
+		if a[i] < a[l] {
+			a[c], a[i] = a[i], a[c]
+			i++
+			c++
+		} else {
+			i++
+		}
+	}
+	a[c], a[l] = a[l], a[c]
+
+	if c == rank {
+		return a[c]
 	}
 
-	fmt.Println("Error - Unsupported sort requested........")
+	if c > rank {
+		return quickSelect(a[:c], rank)
+	} else {
+		return quickSelect(a[c+1:], rank-c-1)
+	}
 }
 
 func generateIntegerArray(n, m int) []int {
