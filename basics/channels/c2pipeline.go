@@ -3,6 +3,7 @@ package channels
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 )
 
@@ -30,16 +31,19 @@ func queue() <-chan int {
 		s := rand.NewSource(time.Now().UnixNano())
 		r := rand.New(s)
 		nArr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+		var wg sync.WaitGroup
 		for _, n := range nArr {
-			go func(nn int) {
+			wg.Add(1)
+			go func(nn int, wg *sync.WaitGroup) {
 				time.Sleep(time.Duration(r.Intn(5)) * time.Millisecond)
 				// fmt.Println("Queueing factorial for", nArr[nn])
 				// c <- nArr[nn]
 				// fmt.Println("Queueing factorial for", nn)
 				c <- nn
-			}(n)
+				wg.Done()
+			}(n, &wg)
 		}
-		time.Sleep(6 * time.Millisecond)
+		wg.Wait()
 		close(c)
 	}()
 	return c
@@ -50,8 +54,10 @@ func factorial(c <-chan int) <-chan fact {
 	go func() {
 		s := rand.NewSource(time.Now().UnixNano())
 		r := rand.New(s)
+		var wg sync.WaitGroup
 		for n := range c {
-			go func(nn int) {
+			wg.Add(1)
+			go func(nn int, wg *sync.WaitGroup) {
 				time.Sleep(time.Duration(r.Intn(5)) * time.Millisecond)
 				// fmt.Println("Processing factorial for", nn)
 				f := 1
@@ -60,9 +66,10 @@ func factorial(c <-chan int) <-chan fact {
 				}
 				// fmt.Println("Queueing result for factorial of", nn)
 				out <- fact{nn, f}
-			}(n)
+				wg.Done()
+			}(n, &wg)
 		}
-		time.Sleep(6 * time.Millisecond)
+		wg.Wait()
 		close(out)
 	}()
 	return out

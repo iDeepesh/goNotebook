@@ -95,15 +95,18 @@ func ExecuteChannelConcurrentPolling() {
 		close(c)
 	}()
 
-	// poll := func(i int) {
-	go func(i int) {
+	var wg sync.WaitGroup
+	poll := func(i int, wg *sync.WaitGroup) {
 		for n := range c {
 			fmt.Println("Poller:", i, "Value:", n)
 		}
-	}(1)
+		wg.Done()
+	}
 
-	// go poll(1)
-	// go poll(2)
+	wg.Add(2)
+	go poll(1, &wg)
+	go poll(2, &wg)
+	wg.Wait()
 }
 
 //ExecuteDirectionalChannels - an example of directional channel

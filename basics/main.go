@@ -1,14 +1,9 @@
 package main
 
-import (
-	// "github.com/iDeepesh/goNotebook/basics/funcexpression"
-	// "github.com/iDeepesh/goNotebook/basics/io"
-	// "github.com/iDeepesh/goNotebook/basics/maps"
-	// "github.com/iDeepesh/goNotebook/basics/structs"
-	"github.com/iDeepesh/goNotebook/basics/interfaces"
-	// "github.com/iDeepesh/goNotebook/basics/concurrency"
-	// "github.com/iDeepesh/goNotebook/basics/channels"
-)
+import "github.com/iDeepesh/goNotebook/basics/channels"
+
+// "github.com/iDeepesh/goNotebook/basics/concurrency"
+// "github.com/iDeepesh/goNotebook/basics/channels"
 
 func main() {
 
@@ -25,7 +20,7 @@ func main() {
 	// maps.ExecuteHashTableFromText()
 
 	// structs.ExecuteStructUsage()
-	// structs.ExecuteMarshaling()
+	// structs.ExecuteMarshaling()k
 	// structs.ExecuteEncoding()
 
 	// interfaces.ExecuteShapes()
@@ -33,18 +28,18 @@ func main() {
 	// interfaces.ExecuteStringSort()
 	// interfaces.ExecuteIntSort()
 	// interfaces.ExecuteAssertions()
-	interfaces.ExecuteMinHeapTest()
-	interfaces.ExecuteMaxHeapTest()
+	// interfaces.ExecuteMinHeapTest()
+	// interfaces.ExecuteMaxHeapTest()
 
 	// concurrency.ExecuteConcurrentWaitGroup()
 	// concurrency.ExecuteConcurrentMutex()
 	// concurrency.ExecuteConcurrentAtomic()
 
-	// channels.ExecuteChannelRange()
-	// channels.ExecuteChannelSemaphores()
-	// channels.ExecuteChannelConcurrentPolling()
-	// channels.ExecuteDirectionalChannels()
-	// channels.ExecuteFactorialPipeline()
-	// channels.ExecuteFanInFanOut()
-	// channels.ExecuteOneKFactorialsInParallel()
+	channels.ExecuteChannelRange()
+	channels.ExecuteChannelSemaphores()
+	channels.ExecuteChannelConcurrentPolling()
+	channels.ExecuteDirectionalChannels()
+	channels.ExecuteFactorialPipeline()
+	channels.ExecuteFanInFanOut()
+	channels.ExecuteOneKFactorialsInParallel()
 }

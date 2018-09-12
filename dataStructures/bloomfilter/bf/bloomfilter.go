@@ -53,6 +53,7 @@ func (bf *realBF) Exists(s string) bool {
 		b := 1 << (i % 8)
 		if (bf.bits[i/8] & byte(b)) <= 0 {
 			found = false
+			break
 		}
 	}
 	return found
